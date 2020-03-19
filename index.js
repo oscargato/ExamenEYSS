@@ -55,19 +55,15 @@ let createFrase = (input) =>{
 	return input;
 }
 
-
-//*************************************************
 //Modifica una Frase
 let updateFrase = (id, frase) =>{
 	frasesArreglo.map(result => {
-		if(result.id === id){
-			result.frase = frase;
+		if(result.id === id.id){
+			result.frase = id.FraseModificada;
 		}
-		return result;
 	});
-	return frasesArreglo.filter(fras => fras.id === id)[0];
+	return frasesArreglo.filter(fras => fras.id === id.id)[0];
 }
-//*************************************************
 
 
 const root = {
