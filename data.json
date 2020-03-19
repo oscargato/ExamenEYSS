@@ -1,0 +1,13 @@
+{
+	"frasesArreglo":[
+		{	"id":1,
+			"frase":"Hola Oscar"
+		},
+		{	"id":2,
+			"frase":"Hola Javascript"
+		},
+		{	"id":3,
+			"frase":"Hola Node"
+		}
+	]
+}
