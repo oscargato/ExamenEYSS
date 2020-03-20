@@ -12,14 +12,13 @@ const schema = buildSchema(`
 	}
 
 	type Frases{
-		id:Int
 		frase:String
 	}
 
 	type Mutation{
 		deleteFrase(id:Int!):String
 		createFrase(frase:String!):Frases
-		updateFrase(id:Int!, FraseModificada:String!):Frases
+		updateFrase(id:Int!, FraseModificada:String!):String
 	}
 
 	input FraseInput{
@@ -27,44 +26,39 @@ const schema = buildSchema(`
 	}
 `); 
 
-
-//Retorna Una Frase
-let getFrase = (args)=>{
-	let id = args.id;
-	return frasesArreglo.filter(frase => {
-		return frase.id == id;
-	})[0]
-}
-
 //Retorna Todas las Frases
 let getFrasesAll = ()=>{
 	return frasesArreglo;
 }
 
+//Retorna Una Frase
+let getFrase = (args)=>{
+	let id = args.id;
+	return frasesArreglo[id];
+}
+
 //Elimina una Frase
 let deleteFrase = (id) =>{
-	frasesArreglo.splice(id,1);
-	return 'Frase Eliminada';
+	if(id.id >= 0 && id.id < frasesArreglo.length){
+		frasesArreglo.splice(id.id,1);
+		return 'Frase Eliminada';
+	}else{
+		return null
+	}
 }
 
 //Crea una Frase
 let createFrase = (input) =>{
-	input.id = frasesArreglo.length + 1;
-	console.log(input);
 	frasesArreglo.push(input);
 	return input;
 }
 
 //Modifica una Frase
 let updateFrase = (id, frase) =>{
-	frasesArreglo.map(result => {
-		if(result.id === id.id){
-			result.frase = id.FraseModificada;
-		}
-	});
-	return frasesArreglo.filter(fras => fras.id === id.id)[0];
+	let index = id.id;
+	frasesArreglo[index].frase = id.FraseModificada;
+	return 'Frase Modificada';
 }
-
 
 const root = {
 	frase: getFrase,
